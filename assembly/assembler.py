@@ -19,7 +19,7 @@ def assemble(instr):
 		raw = byte1 + byte2
 
 	elif op == "LDB":
-		int_op = 2 << 4 | 1
+		int_op = 1 << 4 | 1
 		reg1 = int(instr_part[1].strip("R").strip(","))
 		reg2 = int(instr_part[2].strip("R").strip(","))
 		byte1 = chr(int_op)
