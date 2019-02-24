@@ -165,7 +165,10 @@ main_loop()
 				uint8_t rx1 = GET_LOAD_STORE_RX1(instruction[1]);
 				uint8_t rx2 = GET_LOAD_STORE_RX2(instruction[1]);
 				if (ldr_flag & LOAD_STORE_BYTE_FLAG)
+				{
+
 					read_byte(R[rx2], &R[rx1]);
+				}	
 				else 
 					read_word(R[rx2], &R[rx1]);
 				// printf("Loaded %x \n", R[rx1]);
@@ -229,6 +232,8 @@ main_loop()
 				uint8_t rx1 = instruction[0] & 0x0F;
 				uint8_t rx2 = instruction[1] >> 4 & 0x0F;
 				uint8_t rx3 = instruction[1] & 0x0F;
+				if (rx1 != rx2 && debug)
+					printf("%x %x %x\n", R[rx1], R[rx2], R[rx3]);
 				if (R[rx1] == R[rx2])
 					R[IP] = R[rx3];
 				break;
@@ -252,7 +257,9 @@ main_loop()
 				uint8_t rx1 = instruction[0] & 0x0F;
 				uint8_t rx2 = instruction[1] >> 4 & 0x0F;
 				uint8_t rx3 = instruction[1] & 0x0F;
+				// printf("%x ^ %x = ", R[rx1], R[rx2]);
 				R[rx3] = R[rx1] ^ R[rx2];
+				// printf("%x \n", R[rx3]);
 				break;
 			}
 			case AND:
@@ -261,6 +268,7 @@ main_loop()
 				uint8_t rx2 = instruction[1] >> 4 & 0x0F;
 				uint8_t rx3 = instruction[1] & 0x0F;
 				R[rx3] = R[rx1] & R[rx2];
+				// printf("%x = %x ^ %x", R[rx3], R[rx1], R[rx2]);
 				break;
 			}
 			case OR:
@@ -280,6 +288,7 @@ main_loop()
 		if (current_op_code == 0)
 			break;
 	}
+	
 }
 
 void 
