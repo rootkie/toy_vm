@@ -1,0 +1,11 @@
+
+
+emulator loads an answer char array in memory (0x00babe) using memory.h
+
+test.asm will be the decryption loop with 1 hard coded string. XOR cycle
+
+1. Write welcome message
+2. Read interrupt to get user input. Store it at 0x031337
+3. Run decrypt loop
+4. Compare with answer array
+5. Output yes or no.
